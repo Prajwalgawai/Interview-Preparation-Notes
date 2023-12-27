@@ -1,0 +1,376 @@
+<script>
+// binary search
+ function findAns(nums, start, end, target){
+    if(start>end){
+        return -1;
+    }
+   let mid=Math.floor((start+end)/2);
+
+    if(nums[mid]===target){
+        return mid;
+    }else
+    if(nums[mid]<target){
+return findAns(nums, mid+1, end,target);
+    }else{
+    return    findAns(nums, start, mid-1, target);
+    }
+}
+var search = (function(nums, target) {
+    let start =0, end=nums.length-1;
+return findAns(nums, start, end, target);
+})([-1,0,3,5,9,12],9);
+
+console.log('index for bs is '+search);
+
+
+//rotate array to right k times
+
+var rotate = function(nums, k) {
+    let  len=nums.length;
+    k=k%len;                              // when k is greater than array length;
+        let first=nums.length-k;
+  if(len>1){
+    let second=k;
+    let temp;
+   for(let i=0; i<Math.floor(first/2); i++){        //carefully see how to rotate array.
+  
+       temp=nums[i];
+      nums[i]=nums[first-1-i];
+      nums[first-1-i]=temp; 
+   }
+
+let n=Math.floor(k/2);
+let i=(len-k);
+let b=len-1;
+console.log(i+" "+b);
+  while(n--){
+  temp=nums[i];
+      nums[i]=nums[b];
+      nums[b]=temp; 
+      b--;
+      i++;
+  }
+i=0;
+b=len-1;
+while(i<b){                     //carefully see how to rotate array.
+    temp=nums[i];
+    nums[i]=nums[b];
+    nums[b]=temp;
+    i++;
+    b--;
+} 
+  }
+};
+
+
+//check whether anagrams or not
+var firstWord = "Deepak";
+var secondWord = "Aman";
+
+isAnagram("rpajwal", 'rpajlaw'); // true
+
+function isAnagram(one, two) {
+  //Change both words to lowercase for case insensitivity..
+  var a = one.toLowerCase();
+  var b = two.toLowerCase();
+
+  // Sort the strings, then combine the array to a string. Examine the outcomes.
+  a = a.split("").sort().join("");
+  b = b.split("").sort().join("");
+
+  return a === b;
+}
+
+
+
+
+//count vowels present in a string
+
+const findVowels=(str)=>{
+const vowels=['a', 'e', 'i', 'o', 'u'];
+let count=0;
+for (let i of str.toLowerCase()){
+    if(vowels.includes(i)){                      //instead of includes we can use if(vowels.indexOf(i)!==-1){}
+        count++;
+    }
+}
+return count;
+}
+console.log(findVowels("aeiourpjwalai"));
+
+
+
+// converting object to an array 
+let obj={name:"prajwal", age:"21", degree:"Btech"};
+console.log(obj);
+console.log(Object.keys(obj));    //['name', 'age', 'degree'] converting keys to array
+console.log(Object.values(obj));  //['prajwal', '21', 'Btech'] values to array
+console.log(Object.entries(obj));  // both k and v to array creating nested eg.[["id", "1"],["name", "user22"],["age", "26"],["work", “programmer"]]
+
+obj=Object.entries(obj);
+console.log(obj);
+
+
+
+//find output:
+
+const b = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+for (let i = 0; i < 10; i++) {
+  setTimeout(() => console.log(b[i]), 1000);
+}
+
+for (var i = 0; i < 10; i++) {
+  setTimeout(() => console.log(b[i]), 1000);
+}
+// 1
+// 2
+// 3
+// 4
+// 5
+// 6
+// 7
+// 8
+// 9
+// 10
+// undefined
+// undefined
+// undefined
+// undefined
+// undefined
+// undefined
+// undefined
+// undefined
+// undefined
+// undefined
+
+
+//removing all punctualtions from string
+
+// (function(str){
+// return (
+//     (function(){
+// const new_string=str.replace(/[^a-zA-Z0-9]/g, "")          //this will remove all the alphanumeric characters from string which is same as removing punctuations from string.
+// console.log("new string is "+new_string)         //or /[!#"$%&'()*+,-./:;<=>?@[\\]^_`{|}~]/g this can use
+//     })()
+// )
+// })("prajwal*&$$E%^$}{!~`|\]\fsdf}ffsprajwlagawai");
+
+
+
+//prototype:
+
+
+
+var obj2={   
+    run:()=>this.name
+       }
+
+       var obj1={name:"prajwal", 
+       age:21}
+       console.log(obj1.run);    //❌                //need to use call 
+       console.log(obj2.run);    //✅
+
+
+
+
+
+
+
+
+//Prototype patterns implementation:
+// Prototype (Template)
+const carPrototype = {
+  drive: function() {
+    console.log("Driving!");
+  },
+  stop: function() {
+    console.log("Stopping!");
+  }
+};
+
+// Cloning and Customization
+const car1 = Object.create(carPrototype);
+car1.make = "Toyota";
+car1.model = "Camry";
+
+const car2 = Object.create(carPrototype);
+car2.make = "Honda";
+car2.model = "Accord";
+
+// Usage
+car1.drive(); // Output: Driving!
+car2.stop();  // Output: Stopping!
+
+
+
+
+
+
+
+
+// finding duplicate elements in array
+
+const arr=[1, 4, 3, 1, 6, 7, 4, 3];
+const duplicate_elements=arr.filter((ele, index, arr)=>{      //this will return object
+    if(arr.indexOf(ele)!==index){
+        return ele;
+    }
+})
+console.log("duplicate elements are "+duplicate_elements);   
+
+
+
+
+
+
+//finding minimum and maximum in array
+
+let ar=[12, 43, 34, 11, 65, 77, 4, 32];
+
+let max_val=ar.reduce((prev, curr)=>{
+    return prev>curr?prev:curr;
+})
+
+let min_val=ar.reduce((prev, curr)=>{                           //reduce also iterate on objects or arr but it does not return array or object it has two parameter i.e prev and curr
+    return prev<curr?prev:curr;                   //reduce return the final value i.e it returned and what ever it return every time becames prev for next iteration and curr will be current element of reduce of array
+})
+
+console.log("max and min are "+max_val+" "+min_val+" resp");
+
+
+
+
+
+
+
+
+//find second greatest element.
+
+class Solution{
+    print2largest(arr,n){
+       let fir_l=0;
+       let sec_l=0;
+       
+       for(let ele of arr){
+           if(ele>fir_l){
+                sec_l=fir_l;
+               fir_l=ele;
+           }else if(ele>sec_l && ele<fir_l){           //see equal to condition need to be checked
+               sec_l=ele;
+           }
+       }
+       return sec_l;
+       
+    }
+}
+
+
+//difference bet'n' find and filter:
+// filter checks for every value while find check until it get's' first value on which condition satisfied. both returns object
+
+
+
+
+
+
+//to find sum of all elements in an array:
+
+let sum=ar.reduce((prev, curr)=>{
+    return prev+curr;
+})
+console.log("sum of element of an arr "+sum);
+
+
+
+
+
+//difference bet'n' toLowerCase and toLocaleLowerCase() 
+
+
+
+
+
+
+// reversing string
+
+          // we can not directly reverse the string using build in reverse fuction but we can reverse the array using reverse()
+let str1="prajwal it_is";
+str1=str1.split("").reverse().join("");
+console.log("reversed string is "+str1);
+
+
+
+
+
+
+//swapping two var's' without using third var
+let x=12, y=15;
+[x, y]=[y, x];  // values has been swapped due to array destructuring
+
+
+
+
+//mergin two arrays and it should come into sorted order :
+
+                 //concept behind prev-curr: If the result of prev - curr is negative, it means prev is smaller, and the elements remain in the same order.
+                // If the result is positive, it means prev is larger, and the elements are swapped.
+                // If the result is zero, the order of prev and curr doesn't change.
+
+
+let new_arr=[4,3, 2, 1], new_arr2=[66, 5, 44, 33];
+let final_arr=[...new_arr, ...new_arr2];
+final_arr=final_arr.sort((prev, curr)=>{
+    return prev-curr;
+});
+console.log("final array is "+final_arr);
+
+
+
+
+//parseInt() & parseFloat()
+console.log("parse Float is "+(parseFloat('123.9')+2));
+console.log("parse Int is "+parseInt('123', 10));  // here 10 is for converting to decimal
+
+
+
+//Set in js
+
+const set=new Set();
+set.add(1);
+set.add(4);
+set.add(6);
+set.add(4);               //even if we try to put duplicate values it wont accept duplicates i.e it ignores duplicates
+console.log(set);
+
+set.delete(6);
+// set.clear();    //clearing all entries of set.
+console.log("set contains 1 "+set.has(1));        //has method tell value present in set or not.
+
+
+
+
+//celcius to farnheite:
+// farhenight=(cel*1.8)+32;
+// celcius=(5/9)*(farhenight-32);
+
+
+//convert first character of every word of string to uppercase                                         iiiiiimmmmpppp.
+
+let new_str3="prajwal is good boy";
+
+new_str3=new_str3.split(" ").map((ele, index)=>{
+// return ele[0].toUpperCase();   // this wont work                
+
+return ele.charAt(0).toLocaleUpperCase()+ele.slice(1);
+
+}).join(' ');
+console.log("string with each first char of word to upper case is "+new_str3);
+
+
+
+</script>
+
+
+
+
