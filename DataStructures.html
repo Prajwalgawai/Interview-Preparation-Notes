@@ -1,0 +1,633 @@
+<!-- LinkedList -->
+
+<script>
+class Node {
+    constructor(data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    constructor() {
+        this.head = null;
+    }
+
+    add_to_start(data) {
+        let new_node = new Node(data);
+        new_node.next = this.head;
+        this.head = new_node;
+        return new_node.data;
+    }
+
+    add_to_end(data) {
+        let new_node = new Node(data);
+        if (!this.head) {
+            this.head = new_node;
+        } else {
+            let temp = this.head;
+            while (temp.next !== null) {
+                temp = temp.next;
+            }
+            temp.next = new_node;
+        }
+        return new_node.data;
+    }
+
+    size() {
+        let temp = this.head;
+        let count = 0;
+        while (temp) {
+            temp = temp.next;
+            count++;
+        }
+        return count;
+    }
+
+    add_to_index(data, index) {
+        let new_node = new Node(data);
+        let temp = this.head;
+        let n = this.size();
+        let count = 0;
+        if (n < index) {
+            return "index is invalid";
+        } else {
+            while (count < index - 1) {
+                temp = temp.next;
+                count++;
+            }
+            new_node.next = temp.next;
+            temp.next = new_node;
+            return new_node.data;
+        }
+    }
+
+    remove_front() {
+        if (this.size() <= 0) {
+            return "empty list";
+        }
+        let temp = this.head;
+        this.head = temp.next;
+        return temp.data;
+    }
+
+    remove_at_index(index) {
+        if (this.size() <= 0) {
+            return "empty list";
+        }
+        let count = 0;
+        let temp = this.head;
+        while (count < index - 1) {
+            temp = temp.next;
+            count++;
+        }
+        let deleted = temp.next;
+        temp.next = temp.next.next;
+        return deleted.data;
+    }
+}
+
+let new_list = new LinkedList();
+console.log(new_list.add_to_start(5));
+console.log(new_list.add_to_start(6));
+console.log(new_list.add_to_start(8));
+console.log(new_list.add_to_start(1));
+
+console.log(new_list.add_to_index(99, 2));
+console.log(new_list.add_to_end(101));
+
+
+
+
+
+
+
+
+
+
+// Circular LinkedList:
+
+// Javascript program to delete a given key from linked list. 
+
+// Structure for a node 
+class Node { 
+constructor() { 
+	this.data; 
+	this.next; 
+} 
+} 
+
+// Function to insert a node at the 
+// beginning of a Circular linked list 
+function push(head, data) { 
+// Create a new node and make head 
+// as next of it. 
+var ptr1 = new Node(); 
+ptr1.data = data; 
+ptr1.next = head; 
+
+// If linked list is not NULL then 
+// set the next of last node 
+if (head != null) { 
+	// Find the node before head and 
+	// update next of it. 
+	let temp = head; 
+	while (temp.next != head) temp = temp.next; 
+	temp.next = ptr1; 
+} 
+
+// For the first node 
+else ptr1.next = ptr1; 
+
+head = ptr1; 
+return head; 
+} 
+
+// Function to print nodes in a given 
+// circular linked list 
+function printList(head) { 
+let tempp = head; 
+if (head != null) { 
+	do { 
+	console.log(tempp.data); 
+	tempp = tempp.next; 
+	} while (tempp != head); 
+} 
+} 
+
+function deleteNode(head, key){
+
+if (head == null) return; 
+
+if (head.data == key && head.next == head) { 
+	head = null; 
+	return; 
+} 
+
+let last = head; 
+
+if (head.data == key) { 
+	while (last.next != head) last = last.next; 
+
+	last.next = head.next; 
+	head = last.next; 
+	return; 
+} 
+
+while (last.next != head && last.next.data != key) { 
+	last = last.next; 
+} 
+
+if (last.next.data == key) { 
+	d = last.next; 
+	last.next = d.next; 
+	d = null; 
+} else console.log("Given node is not found in the list!!!"); 
+} 
+
+head = null; 
+
+head = push(head, 2); 
+head = push(head, 5); 
+head = push(head, 7); 
+head = push(head, 8); 
+head = push(head, 10); 
+
+console.log("List Before Deletion: "); 
+printList(head); 
+
+deleteNode(head, 7); 
+
+console.log("List After Deletion: "); 
+printList(head);
+
+
+
+
+
+
+
+
+//Stack data structure in js:
+
+
+class Stack {
+  constructor() {
+    this.stack = [];
+  }
+
+  push(element) {
+    this.stack.push(element);
+  }
+
+  pop() {
+    if (this.isEmpty()) {
+      return "Stack is Empty. Can't perform pop.";
+    }
+
+    return this.stack.pop();
+  }
+
+  peek() {
+    if (this.isEmpty()) {
+      return "Stack is Empty. Can't perform peek.";
+    }
+
+    return this.stack[this.size() - 1];
+  }
+
+  isEmpty() {
+    return this.size() === 0;
+  }
+
+  size() {
+    return this.stack.length;
+  }
+  printStack() {}
+}
+
+const stack = new Stack();
+
+stack.push(10);
+stack.push(69);
+stack.push(420);
+
+console.log(stack.size());
+
+console.log(stack.pop());
+console.log(stack.pop());
+console.log(stack.pop());
+console.log(stack.pop());
+
+console.log(stack.peek());
+
+console.log(stack.isEmpty());
+
+console.log(stack.size());
+
+
+
+
+
+
+
+
+
+// Queue data structure in js
+
+class Queue {
+  constructor() {
+    this.queue = [];
+  }
+
+  enqueue(element) {
+    this.queue.push(element);
+  }
+
+  dequeue() {
+    if (this.isEmpty()) {
+      return "Underflow, cannot perform dequeue";
+    }
+
+    return this.queue.shift();
+  }
+
+  isEmpty() {
+    return this.size() === 0;
+  }
+
+  front() {
+    if (this.isEmpty()) {
+      return "No Elements in the Queue";
+    }
+
+    return this.queue[0];
+  }
+
+  size() {
+    return this.queue.length;
+  }
+
+  printQueue() {
+    let queueString = "";
+    for (let i = 0; i < this.size(); i++) {
+      queueString += this.queue[i] + ", ";
+    }
+
+    console.log("Queue: " + queueString);
+  }
+}
+
+const myQueue = new Queue();
+
+myQueue.enqueue(5);
+myQueue.enqueue(96);
+myQueue.enqueue(786);
+
+myQueue.dequeue();
+myQueue.dequeue();
+myQueue.dequeue();
+console.log(myQueue.dequeue());
+console.log(myQueue.front());
+
+
+
+
+
+
+//Circular Queue:
+
+// JS program for insertion and
+// deletion in Circular Queue
+class Queue {
+	constructor() {
+		this.rear = -1;
+		this.front = -1;
+		this.size = 5;
+		this.arr = new Array();
+	}
+	enQueue(value) {
+		if ((this.front == 0 && this.rear == this.size - 1) ||
+			(this.rear == (this.front - 1) % (this.size - 1))) {
+			console.log("Queue is Full");
+			return;
+		}
+		else if (this.front == -1) /* Insert First Element */ {
+			this.front = this.rear = 0;
+			this.arr[this.rear] = value;
+		}
+		else if (this.rear == this.size - 1 && this.front != 0) {
+			this.rear = 0;
+			this.arr[this.rear] = value;
+		}
+		else {
+			this.rear++;
+			this.arr[this.rear] = value;
+		}
+	}
+	deQueue() {
+		if (this.front == -1) {
+			console.log("Queue is Empty");
+			return INT_MIN;
+		}
+		let data = this.arr[this.front];
+		this.arr[this.front] = -1;
+		if (this.front == this.rear) { 
+			this.front = -1;
+			this.rear = -1;
+		}
+		else if (this.front == this.size - 1)
+			this.front = 0;
+		else
+			this.front++;
+		// console.log("Data: ",data);
+		return data;
+	}
+	displayQueue() {
+		if (this.front == -1) {
+			console.log("Queue is Empty");
+			return;
+		}
+		console.log("\nElements in Circular Queue are: ");
+		if (this.rear >= this.front) {
+			for (let i = this.front; i <= this.rear; i++)
+				console.log(this.arr[i]);
+		}
+		else {
+			for (let i = this.front; i < this.size; i++)
+				console.log(this.arr[i]);
+			for (let i = 0; i <= this.rear; i++)
+				console.log(this.arr[i]);
+		}
+	}
+}
+
+/* Driver of the program */
+let q = new Queue;
+
+// Inserting elements in Circular Queue
+q.enQueue(14);
+q.enQueue(22);
+q.enQueue(13);
+q.enQueue(-6);
+
+// Display elements present in Circular Queue
+q.displayQueue();
+
+// Deleting elements from Circular Queue
+console.log("Deleted value = ", q.deQueue());
+console.log("Deleted value = ", q.deQueue());
+q.displayQueue();
+q.enQueue(9);
+q.enQueue(20);
+q.enQueue(5);
+q.displayQueue();
+q.enQueue(20);
+
+
+
+
+
+
+
+
+// Q. stacks using 2 queues.
+//making push constly
+//push: push the element into the queue2 then pop all element from queue 1 and push into queue 2 then finally swap queue 2 with 1:
+//pop: pop from queue1
+
+//making pop constly:
+//pop elements from queue1 & put to queue2 until size of queue1 becomes 1 then pop that element which was our desired pop, finally swap
+//queue1 & 2.
+//Push: simply push into queue1
+
+//Q. queue using stack:
+// for push simply push into stack 1 & for pop, pop all elements of stack 1 and put into stack 2 and pop one element from stack 2 which is
+//desired pop then swap stack 1 & stack 2;
+
+
+
+
+
+
+
+
+
+// 📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌📌   graph:   easy peasy just need practice.
+
+//Q. graph:
+// create a graph prototype
+function Graph(noOfVertices) {
+    this.noOfVertices = noOfVertices;
+    this.AdjList = new Map();
+}
+
+// add vertex to the graph
+Graph.prototype.addVertex = function (v) {
+    this.AdjList.set(v, []);
+};
+
+// add edge to the graph
+Graph.prototype.addEdge = function (v, w) {
+    this.AdjList.get(v).push(w);
+    this.AdjList.get(w).push(v);
+};
+
+// Prints the vertex and adjacency list
+Graph.prototype.printGraph = function () {
+    var get_keys = this.AdjList.keys();
+
+    for (var i of get_keys) {
+        var get_values = this.AdjList.get(i);
+        var conc = "";
+
+        for (var j of get_values)
+            conc += j + " ";
+
+        console.log(i + " -> " + conc);
+    }
+};
+
+// function to perform BFS
+Graph.prototype.bfs = function (startingNode) {        //important.🌟🌟
+    var visited = {};
+    var q = new Queue();
+
+    visited[startingNode] = true;
+    q.enqueue(startingNode);
+
+    while (!q.isEmpty()) {
+        var getQueueElement = q.dequeue();
+        console.log(getQueueElement);
+
+        var get_List = this.AdjList.get(getQueueElement);         
+
+        for (var i in get_List) {
+            var neigh = get_List[i];
+
+            if (!visited[neigh]) {   
+                visited[neigh] = true;
+                q.enqueue(neigh);
+            }
+        }
+    }
+};
+
+// Main DFS method
+Graph.prototype.dfs = function (startingNode) {
+    var visited = {};
+    this.DFSUtil(startingNode, visited);
+};
+
+// Recursive function which process and explore
+// all the adjacent vertex of the vertex with which it is called
+Graph.prototype.DFSUtil = function (vert, visited) {
+    visited[vert] = true;
+    console.log(vert);
+
+    var get_neighbours = this.AdjList.get(vert);
+
+    for (var i in get_neighbours) {
+        var get_elem = get_neighbours[i];
+        if (!visited[get_elem])
+            this.DFSUtil(get_elem, visited);
+    }
+};
+
+// Using the above implemented graph prototype
+var g = new Graph(6);
+var vertices = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+// adding vertices
+for (var i = 0; i < vertices.length; i++) {
+    g.addVertex(vertices[i]);
+}
+
+// adding edges
+g.addEdge('A', 'B');
+g.addEdge('A', 'D');
+g.addEdge('A', 'E');
+g.addEdge('B', 'C');
+g.addEdge('D', 'E');
+g.addEdge('E', 'F');
+g.addEdge('E', 'C');
+g.addEdge('C', 'F');
+
+// prints all vertex and
+// its adjacency list
+g.printGraph();
+
+// prints
+// BFS
+g.bfs('A');
+
+
+
+
+
+
+
+
+//O1 Matrix.
+
+function isValid(i, j, n, m, mat) {
+    if (i >= 0 && i < n && j >= 0 && j < m && mat[i][j] === -1) {
+        return true;
+    }
+    return false;
+}
+
+function updateMatrix(mat) {
+    const n = mat.length;
+    const m = mat[0].length;
+    const ans = new Array(n).fill().map(() => new Array(m).fill(-1));
+    const queue = [];
+
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < m; j++) {
+            if (mat[i][j] === 0) {
+                ans[i][j] = 0;
+                queue.push([i, j]);
+            }
+        }
+    }
+
+    while (queue.length > 0) {
+        const [fir, sec] = queue.shift();
+
+        if (isValid(fir + 1, sec, n, m, ans)) {
+            ans[fir + 1][sec] = ans[fir][sec] + 1;
+            queue.push([fir + 1, sec]);
+        }
+
+        if (isValid(fir - 1, sec, n, m, ans)) {
+            ans[fir - 1][sec] = ans[fir][sec] + 1;
+            queue.push([fir - 1, sec]);
+        }
+
+        if (isValid(fir, sec + 1, n, m, ans)) {
+            ans[fir][sec + 1] = ans[fir][sec] + 1;
+            queue.push([fir, sec + 1]);
+        }
+
+        if (isValid(fir, sec - 1, n, m, ans)) {
+            ans[fir][sec - 1] = ans[fir][sec] + 1;
+            queue.push([fir, sec - 1]);
+        }
+    }
+
+    return ans;
+}
+
+// Example usage
+const inputMatrix = [
+    [0, 0, 0],
+    [0, 1, 0],
+    [1, 1, 1]
+];
+
+const resultMatrix = updateMatrix(inputMatrix);
+console.log(resultMatrix);
+
+
+</script>

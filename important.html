@@ -1,4 +1,12 @@
 <script>
+//2d array creation and filling values inded it.
+// let arr = new Array(3).fill().map((ele, i) => {
+//     return new Array(4).fill().map((_, j) => 'p' + (i * 4 + j));
+// });
+
+or 
+arr=[[], [], [], []];    //do it manually.
+
 // binary search
  function findAns(nums, start, end, target){
     if(start>end){
@@ -74,7 +82,8 @@ function isAnagram(one, two) {
   var a = one.toLowerCase();
   var b = two.toLowerCase();
 
-  // Sort the strings, then combine the array to a string. Examine the outcomes.
+  // 
+   the strings, then combine the array to a string. Examine the outcomes.
   a = a.split("").sort().join("");
   b = b.split("").sort().join("");
 
@@ -336,7 +345,11 @@ console.log("parse Int is "+parseInt('123', 10));  // here 10 is for converting 
 
 //Set in js
 
-const set=new Set();
+const set=new Set();     
+
+//or
+
+const set=new Set([3, 4, 5]);    //creating set and putting three values, for putting values like this should always wrap in [] 
 set.add(1);
 set.add(4);
 set.add(6);
@@ -369,8 +382,372 @@ console.log("string with each first char of word to upper case is "+new_str3);
 
 
 
+
+
+
+
+// generator:
+
+function* iteratorFunc() {
+  let count = 0;
+  for (let i = 0; i < 2; i++) {
+      count++;
+      yield i;
+  }
+  return count;
+}
+
+let iterator = iteratorFunc();
+console.log(iterator.next()); // {value:0,done:false}
+console.log(iterator.next()); // {value:1,done:false}
+console.log(iterator.next()); // {value:2,done:true}
+
+
+
+
+
+
+//WeakSet => lly to set but can store only objects else error
+  //obj inside WeakSet is referenced weakly means if no reference means obj is garbage collected.
+  //has three methods only i.e add delete and has
+
+//WeakMap => but store only objects as key value pair
+const map1 = new Map();
+map1.set('Value', 1);
+
+const map2 = new WeakMap();
+map2.set('Value', 2.3); // Throws an error
+
+let obj = {name:"Vivek"};
+const map3 = new WeakMap();
+map3.set(obj, {age:23});
+
+// above is weakmap implemention
+
+const fruits = new Map([            //this is how we can create normal map 
+  ["apples", 500],
+  ["bananas", 300],
+  ["oranges", 200]
+]);
+
+// map has methods like=> set(), delete(), has(), forEach(), clear(), get()=give value for key
+
+// classes and objects in javascript
+
+// A class is a generalization of an object, whereas an object is an abstraction of an actual thing. A Vehicle, for example, is a specialization
+//  of a Car. As a result, automobiles (class) are descended from vehicles (object).
+
+// prototypal and classical inheritance. js support prototypal inheritance only although classes are present but that is also somehow
+// prototypal inheritance
+
+// eg. 
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(`${this.name} makes a sound`);
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name); // Call the constructor of the superclass (Animal)
+    this.breed = breed;
+  }
+
+  bark() {
+    console.log(`${this.name} barks loudly!`);
+  }
+}
+
+const myDog = new Dog("Buddy", "Labrador");
+myDog.speak(); // Output: Buddy makes a sound
+myDog.bark();  // Output: Buddy barks loudly!
+
+
+
+
+// Design patterns: 
+// repeatable approaches for errors that may arises during the creation of browser application
+// truly assist us in making our code more stable.
+// there are 3 patterns=> creational(it addresses the obj generation mechanism), structural(explains how existing classess and objects
+// can be combined to create greater framework) and behavioural pattern(used to explain communication bet'n' objects giving them more freedom for comm'n')
+
+// advantages of async/await over promises
+// -readablity
+// -more realistic error handling
+// -step by step execution which looks like synchrounous but actually asynchronous 
+// -variable has scope inside async only we can not use outer var's' inside async wherease promises dont provide this.
+
+
+//lexical scoping
+// Lexical scoping, also known as static scoping, is a characteristic of the scoping mechanism in programming languages, including JavaScript.
+// In lexical scoping, the scope of a variable is determined by its location within the source code,
+
+
+//inheritance-> prototypal and classical (actually for creating constructor which is prototype based internally)
+//polymorphism-> ability to create fun'n' of same name for diff obj's' 2 types compile time->method overloading runtime-> method overriding
+// In actual js does not support method overloading traditionally like other languages
+// while it support ad-hoc poly morphism i.e instead of creating multiple func'n' performing same tasks but for diff data type so we can 
+// handle them under same method also
+
+// scripts in js:inline, internal, extenal, async(script is fetch parrallel while parsing html once fetched it stops parsing and starts executing
+// script and after completion only html resuems parsing), defered(here fetches script parrallely but only starts executing after HTML parsing completed).
+// defered allows html to occurs quicky on browser.
+
+
+
+
+// React important codes:
+
+// 1. dropdown -code
+// 2. accordian -code
+// 3.state: react components can have states associated with them when state is change our components is rerender along with all childs
+// 4.creating stop watch => https://www.geeksforgeeks.org/create-a-stop-watch-using-reactjs/
+// 5.weather app-code   
+// modified for city: `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+// actual http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={API key}
+//for lat and lon :- `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
+
+
+
+
+//useState: The useState() is a built-in React Hook that allows you for having state variables in functional components. It should be
+// used when the DOM has something that is dynamically manipulating/controlling.
+
+// Functional component is a JavaScript function that returns a React element (usually JSX). 
+// Key Characteristics of Functional Components
+// Stateless by Default: Initially, functional components were stateless. They simply received props and returned JSX.
+// Hooks for State and Lifecycle: With the introduction of hooks, functional components can now use state and lifecycle features.
+
+
+//jsx use : JSX stands for JavaScript XML. and it is an syntax extension of js, It allows us to write HTML inside JavaScript and place them in the DOM without using functions
+//like appendChild( ) or createElement( ).
+
+
+
+
+// functional(created using functions) and class components:
+
+class Card extends React.Component{
+  constructor(props){
+     super(props);
+   }
+    render(){
+      return(
+        <div className="main-container">
+          <h2>Title of the card</h2>
+        </div>
+      )
+    }
+   }
+
+const card = (props) =>{
+    return(
+      <div className="main-container">
+        <h2>Title of the card</h2>
+      </div>
+    )
+}  
+
+
+// states using class components:       in classes first we need to bind this with classes then we need to set this.state in class and
+// using which we can update states.       //dont read following code for now.❌
+
+class ClassRoom extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {studentsCount : 0};
+            
+            this.addStudent = this.addStudent.bind(this);     //compulsory to bind with constructor.
+         }
+            
+            addStudent(){
+            this.setState((prevState)=>{
+               return {studentsCount: prevState.studentsCount++}
+            });
+         }
+            
+            render(){
+             return(
+               <div>
+                 <p>Number of students in class room: {this.state.studentsCount}</p>
+                 <button onClick={this.addStudent}>Add Student</button>
+               </div>
+             )
+           }
+         } 
+
+
+
+
+
+
+//virtual dom use:
+// a virtual representation of the real DOM stored in memory and synced with read DOM using library called as ReactDOM 
+//One may think updating every virtual DOM object might be inefficient, but that’s not the case. Updating the virtual DOM is much faster
+//than updating the real DOM since we are just updating the blueprint of the real DOM.
+//React uses two virtual DOMs to render the user interface. One of them is used to store the current state of the objects and the other 
+//to store the previous state of the objects. Whenever the virtual DOM gets updated, react compares the two virtual DOMs and gets to know
+//about which virtual DOM objects were updated. After knowing which objects were updated, react renders only those objects inside the real
+// DOM instead of rendering the complete real DOM. This way, with the use of virtual DOM, react solves the problem of inefficient updating.
+
+
+
+//use of refs: for accessing vals of uncontrolled components.        //ok if dont see code for now
+
+
+function FormValidation(props) {
+let inputValue = React.createRef();
+let handleSubmit = e => {
+  alert(`Input value: ${inputValue.current.value}`);
+  e.preventDefault();
+};
+return (
+  <div> 
+    <form onSubmit={handleSubmit}>
+      <input type="text" ref={inputValue} />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+);
+}
+
+//useRefs in detail :  it creates a mutable variable which won't rerender our component.
+//we can also access the dom element of html directly using useRef by using ref in element as attribute like (ref=var_name) of useRef.
+
+
+//props and state difference => props immutable , better performance wherease state=> mutable, writable, and can be passed as props to compo
+//state has localscope and owned by it's' component only.
+// Every component in react has a built-in state object, which contains all the property values that belong to that component.
+// In other words, the state object controls the behaviour of a component. Any change in the property values of the state object leads to the re-rendering of the component.
+// Note- State object is not available in functional components but, we can use React Hooks to add state to a functional component.
+
+
+// using classes we can update it like below
+class Car extends React.Component {
+constructor(props) {
+  super(props);
+  this.state = {
+    brand: "BMW",
+    color: "Black"
+  };
+  this.changeColor=this.changeColor.bind(this);
+}
+changeColor() {
+  this.setState(prevState => {
+    return { color: "Red" };
+  });
+}
+render() {
+  return (
+    <div>
+      <button onClick={() => this.changeColor()}>Change Color</button>
+      <p>{this.state.color}</p>
+    </div>
+  );
+}
+}
+
+
+
+
+// ReactHooks:React Hooks are the built-in functions that permit developers for using the state and lifecycle methods within React
+//  components. These are newly added features made available in React 16.8 version. Each lifecycle of a component is having 3 phases 
+//  which include mount, unmount, and update. Along with that, components have properties and states.
+//can not use in class component as we can already use state in classes directly.
+// Using Hook, all features of React can be used without writing class components. For example, before React version 16.8, it required a class 
+// component for managing the state of a component. But now using the useState hook, we can keep the state in a functional component.
+
+// There are 2 rules which must be followed while using react Hooks:
+// React Hooks must be called only at the top level. It is not allowed to call them inside the nested functions, loops, or conditions.
+// It is allowed to call the Hooks only from the React Function Components
+
+
+// Refs: Managing focus, media playback, or text selection.
+// Integrating with DOM libraries by third-party.
+
+
+
+//use of <React.StrictMode></React.StrictMode> allows to identify use of unsafe lifecycle components , legacy contextapi , legacy stringapi
+//and legacy libraries
+// Unsafe Lifecycle Methods
+// componentWillMount()
+// componentWillReceiveProps()
+// componentWillUpdate()
+// These methods are considered unsafe because they can lead to issues when asynchronous operations are involved. Let's explore why these methods 
+// are problematic in asynchronous contexts:
+
+
+// 1. componentWillMount()
+// Why Unsafe: This method is called right before the initial render. It's unsafe because any side effects or asynchronous operations started
+//  here can continue even if the component is unmounted before those operations complete. This can lead to memory leaks and race conditions.
+// Alternative: Use the constructor for synchronous initialization or useEffect with an empty dependency array ([]) to handle side effects.
+
+// should component update
+
+shouldComponentUpdate() {            // using this we can prevent rerenders(as whole componets with child also rerenders unnecesarily).
+  console.log("Does not get rendered");
+  return false;
+}
+
+
+
+//How to pass data in react:
+// from parent to child using props.
+// from child to parent using callsback using props.
+
+
+
+
+//Higher order Component which is HOF also used for creating new component from existing one i.e adds some features and returns it.
+
+import React, { Component } from 'react';
+const withBackgroundColor = (WrappedComponent, color) => {
+
+  return class WithBackgroundColor extends Component {
+    render() {
+      return <WrappedComponent {...this.props} style={{ backgroundColor: color }} />;
+    }
+  };
+};
+const MyComponent = (props) => {
+  return <div>This is my component</div>;
+};
+const MyComponentWithBackground = withBackgroundColor(MyComponent, 'lightblue');
+
+
+
+
+
+
+//react component life cycle:
+// 4  phases: 
+// 1. initialization-setting up default props and states for further jouney.-constructor().
+// 2. mouting-attatch component to dom(virtual ig) -> componentWillMound(), componentDidMount().
+// 3. updating-it updates the props and states-> componentWillUpdate(), shouldComponentUpdate(), render, componentWillUpdate().
+// 4. unmounting-> componentwillUnmound()-> component will remove from the dom or from browser dom.
+
+// drawbacks of react:
+// difficult to understand components to beginner
+// Integrating React with the MVC framework like Rails requires complex configuration.
+
+
+
+//React Important Questions list :
+1. what is props                                            done
+2. what is Hooks                                            done
+3. what is useState and useEffect react hook in depth.      done
+4. Lifecycle state of react components and it's phases      done
+5. controlled and uncontrolled components                   done
+6. props drilling                                           done
+7. what is strict mode in react                             done
+8. Higher order components                                  done
+9. what is the react router                                 done
+10.How to pass data between react components                done
+11.Conditional rendering in react                           done
+12.How to perform automatic redirect after login            done
+13.  
 </script>
-
-
-
-

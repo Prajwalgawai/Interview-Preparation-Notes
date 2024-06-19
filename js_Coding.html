@@ -1,0 +1,709 @@
+<script>
+//1. check the data type of given Number i.e float or int
+
+let isInt=(a)=>{
+    return a%1===0;
+}
+console.log(isInt(66.4)===false?"it is float":"it is Int");
+console.log(isInt(66)===false?"it is float":"it is Int");
+
+
+
+
+
+
+
+//2.multiply(5)(6);   write this function declaration
+
+function multiply(a){
+return (function (b){       //🌟inside function must be return like this and can be anonymous
+    return a*b;
+})       
+}
+document.write("mul is "+multiply(5)(6));       //🌟we are not creating expre'n' in declaration of inner fun'n' as it will return func and using second (6) 
+//we are calling it
+
+
+
+
+
+
+//3. when would you use bind function => when need to call particular fun'n' with specific value of this.
+
+function Student(){
+    let name="raj", mentor="vikram";
+console.log("name of student is "+this.name+" and his mentor is "+this.mentor);
+}
+
+let obj1={name:"prajwal", mentor:"HR Mam"};
+
+Student.bind(obj1)();                         //🌟Student.bind(obj1) this just doing binding but to call Student we need to use () successively.
+
+
+
+
+
+//4. var arr = [1, 2, 3, 4, 5];                        
+// var avg = arr.average();
+// console.log(avg);            change the arr to make this code working
+//ans:
+
+Array.prototype.average=function(){
+   let sum= this.reduce((prev, curr)=>{
+return prev+curr;
+})
+return sum/this.length;
+}
+var arr = [1, 2, 3, 4, 5];
+var avg = arr.average();
+console.log("avarage using prototype is"+avg); 
+
+
+
+
+
+
+// 4. give an example of callback
+
+function callback() {
+  return new Promise((resolve, reject) => {                    //this callback will return promise and following👇 then and catch can consume this promise
+    // Simulating success
+    resolve("this is callback");
+  });
+}
+
+function speak_name(str, callback) {
+  console.log("this is an outer function of callback");
+
+  // callback().then((result)=>{           //❌this is not valid as callback does not return default promises.
+//     //     console.log(result);
+//     // }).catch((err)=>{
+//     //     console.log(err);
+//     // })
+
+  callback()
+    .then((result) => {                                           
+      console.log(result); // This will be printed if resolve is called
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+// Call the function with a callback
+speak_name("prajwal", callback);
+
+
+
+
+
+
+
+// 5. tell output of 0.1+0.2===0.4
+
+console.log(0.1+0.2===0.4);   //this give false as 0.1+0.2=0.30000000000000004  because of internal errors in calculating floating values.
+
+
+// 6. how to create a private variable in js
+
+// function func(){
+//     var private_var=3;  
+// }
+// func();
+// console.log(private_var);     //this will throw an error as var is limited to it's' scope which is func although var is global scope but here it is created inside block
+
+    //to access private var we can return it using helping function
+
+    function func2(){
+    var private_var=3;
+    return private_var;  
+}  
+console.log(func2());
+
+
+
+// 7. regular expressions in js
+// regular expression is a pattern that we define which is used for searching this patterns in strings 
+let my_str="thisisprajwal934..^&%R^%gawai";
+let regExp=/[^a-zA-Z0-9]/g;
+my_str=my_str.replace(regExp, "");
+console.log(my_str);
+
+//other important regular expressions:
+var regExp2=/(a|b|c)/gi       //either a or b or c i means case insensitive.
+var regExp2=/(abc)/gi         //it means substring abc pattern
+var regExp3=/\s/g;            //used to trim all spaces.  
+var regExp4=/A..B/gi          //patter at which A is exactly two position away from B.
+
+var regExp5=/\d{2,4}/;               //Matches between 2 and 4 digits.
+var pattern = /\d/;      //Matches any digit from 0 to 9.
+var pattern2 = /\d+/;    //atleast one digit
+var pattern3 = /\w+/;    //atleast one word composed of alphanumeric characters and underscore,
+
+
+str="dfslfjliw";
+var wor = str.match(/\\b[a-z]+/gi); // ["Hey", "these", "words"]  match converts the elements seperated by pattern found into array and return array
+// this \\b =>Word boundary ensures that the match occurs at the beginning or end of a word.
+
+var pos = str.search(/A..B/gi); // search return the index where pattern is found.
+
+
+
+
+//8. bracket matching problem
+// mistakes: first array has push and pop methods which I was not aware of and returning to map does not ❌break the map so dont use map
+// like loops❌
+
+
+
+//9. Run Length Encoding                   🌟🌟🌟🌟🌟    it's' difficult.
+// str = aaaabbbccc
+// Output: a4b3c3
+
+// encode(str){
+//         let  count=1;
+//         let prev=str[0];
+//         let new_str="";
+//     for(let i=0; i<str.length-1; i++){
+//       if(str[i]===str[i+1]){
+//           prev=str[i];                           //📌mistakes were happen setting right val of prev is at two positions.
+//           count++;
+//       }else{
+//           new_str+=prev+count;
+//           prev=str[i+1];
+//           count=1;
+//       }  
+//     }
+//     if(prev===str[str.length-1]){           //mistakes were happen
+//         return new_str+prev+count;
+//     }
+//     return new_str+str[str.length-1]+count;
+//     }
+
+
+
+
+//10. check which char in string uppercase and which lower case                  //🌟  vvimp concept.
+
+// for(let char of str){
+//     if(char===char.toUpperCase()){
+//         upper++;
+//     }else{
+//         lower++;
+//     }
+// }
+
+
+
+// match method in javascript
+
+// The match() method returns an array with the matches. , match() is used with strings.
+// The match() method returns null if no match is found.
+
+
+//12.                                               // this is the most important question.
+// ❌ lenthy: alph_list=['a', 'b', 'c', 'd', 'e', 'f' , 'g', 'h', 'i', 'j', 'k', 'l',' m,', 'n',' o', 'p',' q','r', 's', 't', 'u','v',' w', 'x', 'y','z'];
+//
+let str_p=[];
+for(let i='a'.charCodeAt(); i<'z'.charCodeAt(); i++){
+    str_p.push(String.fromCharCode(i));
+}
+
+let str_str = "prajwalz";
+let nw_str = "";
+
+for (let i of str_str) {
+  // Calculate the new character code and ensure it's within the range of 'a' to 'z'
+  let newCharCode = (i.charCodeAt() - 'a'.charCodeAt() + 1) % 26 + 'a'.charCodeAt();
+
+  nw_str += String.fromCharCode(newCharCode);
+}
+
+console.log(nw_str);
+
+
+
+
+
+
+
+
+
+//  Q.13 Map creation and use
+
+var myMap = new Map();
+
+myMap.set('key1', 'value1');
+myMap.set('key2', 'value2');
+myMap.set('key3', 'value3');
+
+var valueForKey1 = myMap.get('key1');
+var valueForKey2 = myMap.get('key2');
+var valueForKey3 = myMap.get('key3');
+myMap.delete('key1');
+myMap.forEach((value, key)=>{
+  console.log(`${key} and value is ${val}`);
+})
+
+let map=new Map();                                    //important.
+map.set(4);
+map.set(9);
+map.set("abc",5);
+map.set("abc",7);
+map.forEach((val, key)=>{
+  console.log(val, key);  
+})
+
+output: 
+undefined 4
+undefined 9
+7 abc
+
+
+
+
+
+
+
+// Q.14 test and exec in js
+
+let name="this_is_prajwal";
+let check_name="";
+for(let ele of name){
+  if(/[a-zA-Z]/g.test(ele)){               //In test first is regExp and second is our string for which to find pattern.
+    check_name+=ele;  
+  }
+}
+console.log("output of test is "+check_name);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 15. how to actually use objects in js
+
+// difference bet'n' object and map: 
+// both store key value pairs
+// In map keys can be of any DT and Maintain original DT while in map any DT is converted to String
+// In map ordered of insertion is maintained(guaranteed) & object also but not guaranteed
+// In map size can be calculated easily but not same for object
+// In map can be iterated using forEach while object using (for ele in obj)
+
+// object properties using coding:
+
+let new_obj={};
+new_obj['key1']='val1';         //insertion
+new_obj['key2']='val2';
+new_obj['key3']='val3';
+
+// or 
+
+
+
+new_obj.key1='val1';         //insertion //here key1 can be of any data type but it will converted to string.
+new_obj.key2='val2';
+new_obj.key3='val3';
+
+// or 
+
+const fruits = new Map([            //this is how we can create normal map 
+  ["apples", 500],
+  ["bananas", 300],
+  ["oranges", 200]
+]);
+
+console.log(new_obj['key1']);       //accessing using keys
+
+for(keys in new_obj){           //   only way to print keys and values else using new_obj[i] like this we can print value only
+  console.log(new_obj[keys]);   // see only key🧐   ..... this new_obj[keys] will print values
+}
+
+// using objects like map of c++ for ++ doing 😅😅
+// if((key1 in obj)){
+// obj[key1]++;          //this will increment value for key if value is number.
+// }
+
+// delete myObject.lastName;  // used for deleting key values  
+
+// // Deleting the entire Map variable
+// delete myMap;
+
+// // Deleting the entire Set variable
+// delete mySet;
+
+// // Deleting the entire Object variable         //time complexity to delete is O(1)
+// delete myObject;
+
+let hours=new Date();
+
+hours=hours.getHours();
+document.write("\n"+hours+"am");
+
+
+                                                       
+
+
+//🌟 16.if the value of frequencyCounter[char] is falsy then it will become 0 because of frequencyCounter[char] || 0 else only frequencyCounter[char] will be taken 
+frequencyCounter[char] = (frequencyCounter[char] || 0) + 1;
+
+
+// group anagrams: 
+var groupAnagrams = function(strs) {
+    let map = {}
+
+    for(let str of strs){
+        let s = str.split('').sort().join('')
+        if(!map[s]) map[s] = []
+        map[s].push(str)
+    }
+    return Object.values(map)
+};
+
+
+
+//17. 🌟k most frequent elements from array 
+// O(n) time and extra space
+var topKFrequent = function(nums, k) {
+    const freqMap = new Map();
+    const bucket = [];
+    const result = [];
+    
+    for(let num of nums) {
+        freqMap.set(num, (freqMap.get(num) || 0) + 1);
+    }
+    
+    for(let [num, freq] of freqMap) {
+        bucket[freq] = (bucket[freq] || new Set()).add(num);
+    }
+    
+    for(let i = bucket.length-1; i >= 0; i--) {
+        if(bucket[i]) result.push(...bucket[i]);
+        if(result.length === k) break;
+    }
+    return result;
+};
+
+//O(nlogn).
+
+// using sorting of frequencies 
+
+
+
+
+//Q.18.  Reversing string without using temp and with destructuring concept.
+str1="prawjal";
+str1=str1.split('');                                             //🌟 like this space complexity does not increases as same size for array also and storing in place of string temporarily.
+for(let i=0; i<Math.floor(str1.length/2); i++){
+    [str1[i], str1[str1.length-i-1]]=[ str1[str1.length-i-1], str1[i]];
+}
+str1=str1.join('');
+
+
+
+
+
+
+
+//19. merge overlapping intervals:
+
+/**
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+ var merge = function (intervals) {
+  const res = []
+
+  if (intervals.length === 0) return res
+
+  intervals.sort((a, b) => a[0] - b[0])
+  let tmpInterval = intervals[0]
+
+  for (let i = 1; i < intervals.length; i++) {
+    const [tmpStart, tmpEnd] = tmpInterval
+    const [start_i, end_i] = intervals[i]
+
+    const low = Math.min(tmpStart, start_i)
+    const max = Math.max(tmpEnd, end_i)
+
+    if (tmpEnd >= start_i) {
+      tmpInterval = [low, max]
+    } else {
+      res.push(tmpInterval)
+      tmpInterval = intervals[i]
+    }
+  }
+
+  res.push(tmpInterval)
+
+  return res
+};
+
+
+
+
+
+
+
+
+//20. unique paths:
+
+var uniquePaths = function(m, n) {
+    let memo = new Array(m).fill(null).map(() => new Array(n).fill(-1));  //creating matrix of m*n size.
+    return uniquePathsRecursive(0, 0, m, n, memo);
+};
+
+var uniquePathsRecursive = function(x, y, m, n, memo) {
+    if (x === m - 1 && y === n - 1) {
+        return 1;
+    }
+    
+    if (memo[x][y] !== -1) {
+        return memo[x][y];
+    }
+    
+    let rightPaths = 0;
+    let downPaths = 0;
+    
+    if (x < m - 1) {
+        rightPaths = uniquePathsRecursive(x + 1, y, m, n, memo);
+    }
+    
+    if (y < n - 1) {
+        downPaths = uniquePathsRecursive(x, y + 1, m, n, memo);
+    }
+    
+    memo[x][y] = rightPaths + downPaths;
+    return memo[x][y];
+};
+
+
+
+
+
+
+
+
+//21. word break problem                                     //  🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+// https://leetcode.com/problems/word-break/description/
+
+ var wordBreak = function(s, wordDict){
+    // Initialize a memoization object to store already computed results
+    const memo = {};
+    
+    // Call the recursive helper function to check if the string can be broken
+    return canBreak(s);
+
+    // Recursive helper function to check if the string can be broken into words
+    function canBreak(substring) {
+        // Base case: an empty substring can be broken
+        if (substring.length === 0) {
+            return true;
+        }
+
+        // Check if the result for the current substring is already memoized
+        if (substring in memo) {
+            return memo[substring];
+        }
+
+        // Try breaking the substring with each word in the dictionary
+        for (const word of wordDict) {
+            const wordLength = word.length;
+
+            // Check if the substring starts with the current word
+            if (substring.startsWith(word)) {
+                // Recursively check the remaining substring after removing the current word
+                const remainingSubstring = substring.slice(wordLength);
+                
+                // If the remaining substring can be broken, memoize the result and return true
+                if (canBreak(remainingSubstring)) {
+                    memo[substring] = true;
+                    return true;
+                }
+            }
+        }
+
+        // If no combination is found, memoize the result and return false
+        memo[substring] = false;
+        return false;
+    }
+};
+
+// Example usage:
+const s = "leetcode";
+const wordDict = ["leet", "code"];
+const result = wordBreak(s, wordDict);
+console.log(result);  // Output: true
+
+
+
+
+//22. add two linked list in which digits are stored in reverse order .
+
+var addTwoNumbers = function(l1, l2) {
+    const iter = (n1, n2, rest = 0) => {
+        if (!n1 && !n2 && !rest) return null;
+        const newVal = (n1?.val || 0) + (n2?.val || 0) + rest;
+        const nextNode = iter(n1?.next, n2?.next, Math.floor(newVal / 10));
+        return new ListNode(newVal % 10, nextNode);
+    }
+    return iter(l1, l2);
+};
+
+//23. sort three no. in array 
+if(a[0]>a[1] && a[0]>a[2]){
+    [a[0],a[2]]=[a[2], a[0]];
+}else
+if(a[1]>a[0] && a[1]>a[2]){
+  [a[1],a[2]]=[a[2], a[1]];  
+}
+
+if(a[0]>a[1]){
+      [a[1],a[0]]=[a[0], a[1]];  
+}
+
+
+
+
+
+// Q.24. pascle triangle
+https://leetcode.com/problems/pascals-triangle/
+
+var generate = function(numRows) {
+let mat=[];
+let first=[1];
+
+let second=[1,1];
+if(numRows===1){
+    mat.push(first);
+}else if(numRows>=2){
+     mat.push(first);
+mat.push(second);
+}
+for(let i=2; i<numRows; i++){
+    let temp=[];
+    for(let j=0; j<=i; j++){
+        if(j==0){
+temp.push(1);
+        }
+        else if(j==i){
+temp.push(1);
+        }
+        else{
+            temp.push(mat[i-1][j-1]+mat[i-1][j]);
+        }
+    }
+    mat.push(temp);
+}
+return mat;
+
+//process.stdout.write(element + ' ');
+
+
+
+// next nextPermutation
+
+var nextPermutation = function(nums) {
+      let i = nums.length - 2;
+    while (i >= 0 && nums[i] >= nums[i + 1]) {
+        i--;
+    }
+
+    // Step 2: If no such pair exists, reverse the entire array
+    if (i === -1) {
+        nums.reverse();
+        return;
+    }
+
+    // Step 3: Find the rightmost element greater than nums[i] in the subarray to the right of nums[i]
+    let j = nums.length - 1;
+    while (nums[j] <= nums[i]) {
+        j--;
+    }
+
+    // Step 4: Swap nums[i] and nums[j]
+    [nums[i], nums[j]] = [nums[j], nums[i]];
+
+    // Step 5: Reverse the subarray to the right of nums[i]
+    nums.splice(i + 1, nums.length - i - 1, ...nums.slice(i + 1).reverse());
+};
+
+
+
+
+
+
+// In short traversals:
+
+// Traditional for loop with array
+let array = [1, 2, 3];
+console.log("Traditional for loop with array:");
+for (let i = 0; i < array.length; i++) {
+    console.log(i, array[i]);
+}
+
+// for...of loop with array
+console.log("\nfor...of loop with array:");
+for (let value of array) {
+    console.log(value);
+}
+
+// for...in loop with object
+let obj = { a: 1, b: 2, c: 3 };
+console.log("\nfor...in loop with object:");
+for (let key in obj) {
+    console.log(key, obj[key]);
+}
+
+// forEach loop with array
+console.log("\nforEach loop with array:");
+array.forEach((value, index) => {
+    console.log(index, value);
+});
+
+// while loop
+console.log("\nWhile loop:");
+let i = 0;
+while (i < array.length) {
+    console.log(i, array[i]);
+    i++;
+}
+
+// do...while loop
+console.log("\ndo...while loop:");
+let j = 0;
+do {
+    console.log(j, array[j]);
+    j++;
+} while (j < array.length);
+
+// Set iteration with forEach
+let mySet = new Set([1, 2, 3]);
+console.log("\nSet iteration with forEach:");
+mySet.forEach(value => {
+    console.log(value);
+});
+
+// Map iteration with forEach
+let myMap = new Map([
+    ['a', 1],
+    ['b', 2],
+    ['c', 3]
+]);
+console.log("\nMap iteration with forEach:");
+myMap.forEach((value, key) => {
+    console.log(key, value);
+});
+
+
+
+
+</script>
