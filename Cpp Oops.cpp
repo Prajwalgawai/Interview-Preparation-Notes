@@ -27,11 +27,6 @@ sum(a, b);  //Like this when we call the function multiple times, everytime foll
 
 
 
-
-
-
-
-
 // OOPs, or Object-Oriented Programming is a programming model or paradigm which revolves around the concept of “OBJECTS”. Objects can be considered as real-world instances of 
 // entities like class, that contain some characteristics and behaviors specified in the class template.
 
